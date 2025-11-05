@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <description>Globs library used to instantiate a globs from a command line argument or env variables</description>
     <url>https://globsframework.org</url>
@@ -7,7 +6,7 @@
     <packaging>jar</packaging>
     <artifactId>globs-commandline</artifactId>
     <name>Generic Lightweight ObjectS command line</name>
-    <version>4.2-SNAPSHOT</version>
+    <version>4.2.0</version>
 
     <developers>
         <developer>
@@ -38,7 +37,8 @@
         <url>https://github.com/globsframework/globs-commandline</url>
         <connection>scm:git:git@github.com:globsframework/globs-commandline</connection>
         <developerConnection>scm:git:git@github.com:globsframework/globs-commandline</developerConnection>
-    </scm>
+      <tag>4.2.0</tag>
+  </scm>
 
     <profiles>
         <profile>
