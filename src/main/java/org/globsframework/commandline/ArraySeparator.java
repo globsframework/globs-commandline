@@ -6,6 +6,7 @@ import org.globsframework.core.metamodel.annotations.GlobCreateFromAnnotation;
 import org.globsframework.core.metamodel.annotations.InitUniqueKey;
 import org.globsframework.core.metamodel.fields.StringField;
 import org.globsframework.core.metamodel.impl.DefaultGlobTypeBuilder;
+import org.globsframework.core.model.Glob;
 import org.globsframework.core.model.Key;
 import org.globsframework.core.model.KeyBuilder;
 
@@ -17,17 +18,17 @@ public class ArraySeparator {
     @InitUniqueKey
     public static final Key KEY;
 
+    public static Glob create(char separator) {
+        return TYPE.instantiate()
+                .set(SEPARATOR, String.valueOf(separator));
+    }
+
     static {
         GlobTypeBuilder typeBuilder = new DefaultGlobTypeBuilder("ArraySeparator");
-        TYPE = typeBuilder.unCompleteType();
         SEPARATOR = typeBuilder.declareStringField("separator");
-        typeBuilder.complete();
-        KEY = KeyBuilder.newEmptyKey(TYPE);
         typeBuilder.register(GlobCreateFromAnnotation.class, annotation -> ArraySeparator.TYPE.instantiate()
                 .set(SEPARATOR, String.valueOf(((ArraySeparator_) annotation).value())));
-//        GlobTypeLoaderFactory.create(ArraySeparator.class, "ArraySeparator")
-//                .register(GlobCreateFromAnnotation.class, annotation -> ArraySeparator.TYPE.instantiate()
-//                        .set(SEPARATOR, new String(new char[]{((ArraySeparator_) annotation).value()})))
-//                .load();
+        TYPE = typeBuilder.build();
+        KEY = KeyBuilder.newEmptyKey(TYPE);
     }
 }

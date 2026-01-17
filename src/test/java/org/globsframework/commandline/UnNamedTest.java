@@ -1,7 +1,8 @@
 package org.globsframework.commandline;
 
 import org.globsframework.core.metamodel.GlobType;
-import org.globsframework.core.metamodel.GlobTypeLoaderFactory;
+import org.globsframework.core.metamodel.GlobTypeBuilder;
+import org.globsframework.core.metamodel.GlobTypeBuilderFactory;
 import org.globsframework.core.metamodel.fields.StringArrayField;
 import org.globsframework.core.metamodel.fields.StringField;
 import org.globsframework.core.model.Glob;
@@ -28,7 +29,10 @@ public class UnNamedTest {
         public static StringArrayField otherArgs;
 
         static {
-            GlobTypeLoaderFactory.create(Arg.class).load();
+            GlobTypeBuilder typeBuilder = GlobTypeBuilderFactory.create("Arg");
+            firstArg = typeBuilder.declareStringField("firstArg", UnNamed.UNIQUE);
+            otherArgs = typeBuilder.declareStringArrayField("otherArgs", UnNamed.UNIQUE);
+            TYPE = typeBuilder.build();
         }
     }
 }

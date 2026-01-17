@@ -1,7 +1,8 @@
 package org.globsframework.commandline;
 
 import org.globsframework.core.metamodel.GlobType;
-import org.globsframework.core.metamodel.GlobTypeLoaderFactory;
+import org.globsframework.core.metamodel.GlobTypeBuilder;
+import org.globsframework.core.metamodel.GlobTypeBuilderFactory;
 import org.globsframework.core.metamodel.annotations.Targets;
 import org.globsframework.core.metamodel.fields.GlobUnionField;
 import org.globsframework.core.metamodel.fields.StringField;
@@ -11,6 +12,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.function.Supplier;
 
 public class MultiLevelCommandLineTest {
 
@@ -35,7 +37,10 @@ public class MultiLevelCommandLineTest {
         public static GlobUnionField cmd;
 
         static {
-            GlobTypeLoaderFactory.create(Options.class).load();
+            GlobTypeBuilder builder = GlobTypeBuilderFactory.create("Options");
+            name = builder.declareStringField("name");
+            cmd = builder.declareGlobUnionField("cmd", new Supplier[]{() -> Cmd1.TYPE, () -> Cmd2.TYPE});
+            TYPE = builder.build();
         }
     }
 
@@ -46,7 +51,10 @@ public class MultiLevelCommandLineTest {
         public static StringField arg2;
 
         static {
-            GlobTypeLoaderFactory.create(Cmd1.class, "cmd1").load();
+            GlobTypeBuilder builder = GlobTypeBuilderFactory.create("cmd1");
+            arg1 = builder.declareStringField("arg1");
+            arg2 = builder.declareStringField("arg2");
+            TYPE = builder.build();
         }
     }
 
@@ -56,7 +64,10 @@ public class MultiLevelCommandLineTest {
         public static StringField arg2;
 
         static {
-            GlobTypeLoaderFactory.create(Cmd2.class, "cmd2").load();
+            GlobTypeBuilder builder = GlobTypeBuilderFactory.create("cmd2");
+            arg1 = builder.declareStringField("arg1");
+            arg2 = builder.declareStringField("arg2");
+            TYPE = builder.build();
         }
     }
 }

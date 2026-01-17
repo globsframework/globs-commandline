@@ -6,7 +6,7 @@
     <packaging>jar</packaging>
     <artifactId>globs-commandline</artifactId>
     <name>Generic Lightweight ObjectS command line</name>
-    <version>4.3-SNAPSHOT</version>
+    <version>5.0-SNAPSHOT</version>
 
     <developers>
         <developer>
@@ -131,7 +131,7 @@
         <dependency>
             <groupId>org.globsframework</groupId>
             <artifactId>globs</artifactId>
-            <version>4.14.0</version>
+            <version>5.0-SNAPSHOT</version>
         </dependency>
         <!--    <dependency>-->
         <!--      <groupId>org.globsframework</groupId>-->
