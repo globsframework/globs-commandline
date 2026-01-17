@@ -21,14 +21,13 @@ public class UnNamed {
 
     static {
         GlobTypeBuilder typeBuilder = new DefaultGlobTypeBuilder("UnNamed");
-        TYPE = typeBuilder.unCompleteType();
-        typeBuilder.complete();
+        typeBuilder.register(GlobCreateFromAnnotation.class, annotation -> getUnique());
+        TYPE = typeBuilder.build();
         KEY = KeyBuilder.newEmptyKey(TYPE);
         UNIQUE = TYPE.instantiate();
-        typeBuilder
-                .register(GlobCreateFromAnnotation.class, annotation -> UNIQUE);
-//        GlobTypeLoaderFactory.create(UnNamed.class, "UnNamed")
-//                .register(GlobCreateFromAnnotation.class, annotation -> UNIQUE)
-//                .load();
+    }
+
+    private static Glob getUnique() {
+        return UNIQUE;
     }
 }

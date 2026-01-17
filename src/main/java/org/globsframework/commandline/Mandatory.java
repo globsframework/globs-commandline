@@ -21,14 +21,13 @@ public class Mandatory {
 
     static {
         GlobTypeBuilder typeBuilder = new DefaultGlobTypeBuilder("Mandatory");
-        TYPE = typeBuilder.unCompleteType();
-        typeBuilder.complete();
+        typeBuilder.register(GlobCreateFromAnnotation.class, annotation -> getUnique());
+        TYPE = typeBuilder.build();
         KEY = KeyBuilder.newEmptyKey(TYPE);
         UNIQUE = TYPE.instantiate();
-        typeBuilder.register(GlobCreateFromAnnotation.class, annotation -> UNIQUE);
+    }
 
-//        GlobTypeLoaderFactory.create(Mandatory.class, "Mandatory")
-//                .register(GlobCreateFromAnnotation.class, annotation -> UNIQUE)
-//                .load();
+    private static Glob getUnique() {
+        return UNIQUE;
     }
 }

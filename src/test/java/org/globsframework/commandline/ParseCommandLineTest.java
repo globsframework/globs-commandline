@@ -1,7 +1,9 @@
 package org.globsframework.commandline;
 
 import org.globsframework.core.metamodel.GlobType;
-import org.globsframework.core.metamodel.GlobTypeLoaderFactory;
+import org.globsframework.core.metamodel.GlobTypeBuilder;
+import org.globsframework.core.metamodel.GlobTypeBuilderFactory;
+import org.globsframework.core.metamodel.annotations.DefaultInteger;
 import org.globsframework.core.metamodel.annotations.DefaultInteger_;
 import org.globsframework.core.metamodel.annotations.FieldName_;
 import org.globsframework.core.metamodel.fields.*;
@@ -108,17 +110,23 @@ public class ParseCommandLineTest {
         public static IntegerField VAL;
 
         static {
-            GlobTypeLoaderFactory.create(Opt1.class, true).load();
+            GlobTypeBuilder typeBuilder = GlobTypeBuilderFactory.create("opt1");
+            NAME = typeBuilder.declareStringField("name");
+            MULTIVALUES = typeBuilder.declareStringArrayField("value", ArraySeparator.create(','));
+            VAL = typeBuilder.declareIntegerField("val", DefaultInteger.create(123));
+            TYPE = typeBuilder.build();
         }
     }
 
     public static class Opt2 {
-        public static GlobType TYPE;
+        public static final GlobType TYPE;
 
-        public static StringField otherName;
+        public static final StringField otherName;
 
         static {
-            GlobTypeLoaderFactory.create(Opt2.class, true).load();
+            GlobTypeBuilder typeBuilder = GlobTypeBuilderFactory.create("opt2");
+            otherName = typeBuilder.declareStringField("otherName");
+            TYPE = typeBuilder.build();
         }
     }
 
@@ -129,7 +137,9 @@ public class ParseCommandLineTest {
         public static StringField otherName;
 
         static {
-            GlobTypeLoaderFactory.create(OptWithMandatory.class, true).load();
+            GlobTypeBuilder typeBuilder = GlobTypeBuilderFactory.create("optWithMandatory");
+            otherName = typeBuilder.declareStringField("otherName", Mandatory.UNIQUE);
+            TYPE = typeBuilder.build();
         }
     }
 
@@ -141,7 +151,10 @@ public class ParseCommandLineTest {
         public static DateField date;
 
         static {
-            GlobTypeLoaderFactory.create(ArgWithDate.class).load();
+            GlobTypeBuilder typeBuilder = GlobTypeBuilderFactory.create("date");
+            dateTime = typeBuilder.declareDateTimeField("dateTime");
+            date = typeBuilder.declareDateField("date");
+            TYPE = typeBuilder.build();
         }
     }
 

@@ -1,7 +1,9 @@
 package org.globsframework.commandline;
 
 import org.globsframework.core.metamodel.GlobType;
-import org.globsframework.core.metamodel.GlobTypeLoaderFactory;
+import org.globsframework.core.metamodel.GlobTypeBuilder;
+import org.globsframework.core.metamodel.GlobTypeBuilderFactory;
+import org.globsframework.core.metamodel.annotations.DefaultString;
 import org.globsframework.core.metamodel.annotations.DefaultString_;
 import org.globsframework.core.metamodel.annotations.FieldName_;
 import org.globsframework.core.metamodel.fields.IntegerField;
@@ -103,7 +105,9 @@ public class ParseEnvironmentTest {
         public static StringField NAME;
 
         static {
-            GlobTypeLoaderFactory.create(Opt1.class, true).load();
+            GlobTypeBuilder typeBuilder = GlobTypeBuilderFactory.create("opt1");
+            NAME = typeBuilder.declareStringField("name");
+            TYPE = typeBuilder.build();
         }
     }
 
@@ -115,7 +119,10 @@ public class ParseEnvironmentTest {
         public static StringField ANOTHER_NAME;
 
         static {
-            GlobTypeLoaderFactory.create(OptMulti.class, true).load();
+            GlobTypeBuilder typeBuilder = GlobTypeBuilderFactory.create("optMulti");
+            NAME = typeBuilder.declareStringField("name", Mandatory.UNIQUE);
+            ANOTHER_NAME = typeBuilder.declareStringField("anotherName");
+            TYPE = typeBuilder.build();
         }
     }
 
@@ -127,7 +134,10 @@ public class ParseEnvironmentTest {
         public static StringField ANOTHER_NAME;
 
         static {
-            GlobTypeLoaderFactory.create(OptDefault.class, true).load();
+            GlobTypeBuilder  typeBuilder = GlobTypeBuilderFactory.create("optDefault");
+            NAME = typeBuilder.declareStringField("name");
+            ANOTHER_NAME = typeBuilder.declareStringField("anotherName", DefaultString.create("Marc"));
+            TYPE = typeBuilder.build();
         }
     }
 
@@ -138,7 +148,10 @@ public class ParseEnvironmentTest {
         public static IntegerField INT_FIELD;
 
         static {
-            GlobTypeLoaderFactory.create(OptWithInts.class, true).load();
+            GlobTypeBuilder typeBuilder = GlobTypeBuilderFactory.create("optWithInts");
+            NAME = typeBuilder.declareStringField("name");
+            INT_FIELD = typeBuilder.declareIntegerField("intField");
+            TYPE = typeBuilder.build();
         }
     }
 
@@ -149,7 +162,10 @@ public class ParseEnvironmentTest {
         public static StringArrayField arrayField;
 
         static {
-            GlobTypeLoaderFactory.create(OptWithStringArray.class, true).load();
+            GlobTypeBuilder typeBuilder = GlobTypeBuilderFactory.create("optWithStringArray");
+            NAME = typeBuilder.declareStringField("name");
+            arrayField = typeBuilder.declareStringArrayField("arrayField");
+            TYPE = typeBuilder.build();
         }
     }
 
@@ -162,7 +178,10 @@ public class ParseEnvironmentTest {
         public static StringField withPoint;
 
         static {
-            GlobTypeLoaderFactory.create(OptWithPoint.class, true).load();
+            GlobTypeBuilder typeBuilder = GlobTypeBuilderFactory.create("optWithPoint");
+            NAME = typeBuilder.declareStringField("name");
+            withPoint = typeBuilder.declareStringField("point.field");
+            TYPE = typeBuilder.build();
         }
     }
 
