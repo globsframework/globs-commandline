@@ -6,7 +6,7 @@
     <packaging>jar</packaging>
     <artifactId>globs-commandline</artifactId>
     <name>Generic Lightweight ObjectS command line</name>
-    <version>5.0.0</version>
+    <version>5.1-SNAPSHOT</version>
 
     <developers>
         <developer>
@@ -37,7 +37,7 @@
         <url>https://github.com/globsframework/globs-commandline</url>
         <connection>scm:git:git@github.com:globsframework/globs-commandline</connection>
         <developerConnection>scm:git:git@github.com:globsframework/globs-commandline</developerConnection>
-      <tag>5.0.0</tag>
+      <tag>HEAD</tag>
   </scm>
 
     <profiles>
