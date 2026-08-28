@@ -4,8 +4,6 @@ import org.globsframework.core.metamodel.GlobType;
 import org.globsframework.core.metamodel.GlobTypeBuilder;
 import org.globsframework.core.metamodel.GlobTypeBuilderFactory;
 import org.globsframework.core.metamodel.annotations.DefaultString;
-import org.globsframework.core.metamodel.annotations.DefaultString_;
-import org.globsframework.core.metamodel.annotations.FieldName_;
 import org.globsframework.core.metamodel.fields.IntegerField;
 import org.globsframework.core.metamodel.fields.StringArrayField;
 import org.globsframework.core.metamodel.fields.StringField;
@@ -114,7 +112,6 @@ public class ParseEnvironmentTest {
     public static class OptMulti {
         public static GlobType TYPE;
 
-        @Mandatory_
         public static StringField NAME;
         public static StringField ANOTHER_NAME;
 
@@ -130,7 +127,6 @@ public class ParseEnvironmentTest {
         public static GlobType TYPE;
 
         public static StringField NAME;
-        @DefaultString_("Marc")
         public static StringField ANOTHER_NAME;
 
         static {
@@ -174,7 +170,6 @@ public class ParseEnvironmentTest {
 
         public static StringField NAME;
 
-        @FieldName_("point.field")
         public static StringField withPoint;
 
         static {

@@ -131,7 +131,7 @@
         <dependency>
             <groupId>org.globsframework</groupId>
             <artifactId>globs</artifactId>
-            <version>5.3.0</version>
+            <version>5.13-SNAPSHOT</version>
         </dependency>
         <!--    <dependency>-->
         <!--      <groupId>org.globsframework</groupId>-->

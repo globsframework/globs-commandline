@@ -3,7 +3,6 @@ package org.globsframework.commandline;
 import org.globsframework.core.metamodel.GlobType;
 import org.globsframework.core.metamodel.GlobTypeBuilder;
 import org.globsframework.core.metamodel.GlobTypeBuilderFactory;
-import org.globsframework.core.metamodel.annotations.Targets;
 import org.globsframework.core.metamodel.fields.GlobUnionField;
 import org.globsframework.core.metamodel.fields.StringField;
 import org.globsframework.core.model.Glob;
@@ -33,7 +32,6 @@ public class MultiLevelCommandLineTest {
 
         public static StringField name;
 
-        @Targets({Cmd1.class, Cmd2.class})
         public static GlobUnionField cmd;
 
         static {

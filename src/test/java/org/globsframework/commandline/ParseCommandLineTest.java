@@ -4,8 +4,6 @@ import org.globsframework.core.metamodel.GlobType;
 import org.globsframework.core.metamodel.GlobTypeBuilder;
 import org.globsframework.core.metamodel.GlobTypeBuilderFactory;
 import org.globsframework.core.metamodel.annotations.DefaultInteger;
-import org.globsframework.core.metamodel.annotations.DefaultInteger_;
-import org.globsframework.core.metamodel.annotations.FieldName_;
 import org.globsframework.core.metamodel.fields.*;
 import org.globsframework.core.model.Glob;
 import org.junit.Assert;
@@ -102,11 +100,8 @@ public class ParseCommandLineTest {
 
         public static StringField NAME;
 
-        @FieldName_("value")
-        @ArraySeparator_(',')
         public static StringArrayField MULTIVALUES;
 
-        @DefaultInteger_(123)
         public static IntegerField VAL;
 
         static {
@@ -133,7 +128,6 @@ public class ParseCommandLineTest {
     public static class OptWithMandatory {
         public static GlobType TYPE;
 
-        @Mandatory_
         public static StringField otherName;
 
         static {

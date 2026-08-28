@@ -22,10 +22,8 @@ public class UnNamedTest {
     public static class Arg {
         public static GlobType TYPE;
 
-        @UnNamed_
         public static StringField firstArg;
 
-        @UnNamed_
         public static StringArrayField otherArgs;
 
         static {
