@@ -31,17 +31,20 @@ with the type:
 
 ```java
 public static class Opt1 {
-    public static GlobType TYPE;
+    public static final GlobType TYPE;
 
-    public static StringField NAME;
+    public static final StringField NAME;
+    public static final StringArrayField MULTIVALUES;
+    public static final IntegerField VAL;
 
-    @FieldNameAnnotation("value")
-    @ArraySeparator_(',')
-    public static StringArrayField MULTIVALUES;
-
-    @DefaultInteger(123)
-    public static IntegerField VAL;
-    ...
+    static {
+        GlobTypeBuilder typeBuilder = GlobTypeBuilderFactory.create("opt1");
+        NAME = typeBuilder.declareStringField("name");
+        MULTIVALUES = typeBuilder.declareStringArrayField("value", ArraySeparator.create(','));
+        VAL = typeBuilder.declareIntegerField("val", DefaultInteger.create(123));
+        TYPE = typeBuilder.build();
+    }
+}
 ```
 
 parsed with:
@@ -60,7 +63,7 @@ Assert.assertEquals(123, opt.get(Opt1.VAL).intValue());
 
 Rules worth knowing:
 
-- An option is `--<field name>`, or `--<name>` from `@FieldNameAnnotation` / `FieldName.create(...)`.
+- An option is `--<field name>`, or `--<name>` from `FieldName.create(...)`.
 - A `BooleanField` is a flag: `--verbose` alone sets it to true.
 - An **array field keeps consuming** the following bare arguments, and each of them is also split on the
   separator — `,` by default, changed with `ArraySeparator`. That is why `--value toto titi` and

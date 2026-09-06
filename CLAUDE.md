@@ -46,13 +46,13 @@ to type B (`ParseCommandLineTest#multipleOptions`). The `String[]` overloads cop
 
 **`extract()` is a `lastField`-stateful loop** (`ParseCommandLine.java:82`):
 
-- `--foo` looks up the field by *field name* (`type.findField`), so `@FieldName_("point.field")` makes
+- `--foo` looks up the field by *field name* (`type.findField`), so `FieldName.create("point.field")` makes
   `--point.field` valid; a Boolean field consumes no value (presence ⇒ `TRUE`), anything else consumes the
   next token.
 - A bare token while `lastField` is an array field is appended to that array — this is how
   `--value toto titi --value A,B,C` accumulates five entries. Each token is additionally split on the
-  separator from `@ArraySeparator_(',')` (default `,`).
-- A bare token with no `lastField` is fed to the next field annotated `@UnNamed_`, in declaration order;
+  separator from `ArraySeparator.create(',')` (default `,`).
+- A bare token with no `lastField` is fed to the next field carrying `UnNamed`, in declaration order;
   a `StringArrayField` in that position becomes `lastField` and swallows the rest.
 - A bare token matching the *name of a target type* of a `GlobUnionField` is a **subcommand**: `extract()`
   recurses into that type with `ignoreUnknown=true, stopAtFirstNotFound=true`, so the sub-parse hands
@@ -60,8 +60,8 @@ to type B (`ParseCommandLineTest#multipleOptions`). The `String[]` overloads cop
 - The loop guard is `while (!deque.isEmpty() && size != deque.size())` — an iteration that consumes nothing
   ends parsing silently. Any new branch **must** remove from the deque or the change will look like a no-op.
 
-Defaults are applied before parsing (`field.getDefaultValue()`, i.e. `@DefaultInteger_` & co from core) and
-`@Mandatory_` is checked at the end against `isSet`, not `isNull`.
+Defaults are applied before parsing (`field.getDefaultValue()`, i.e. `DefaultInteger` & co from core) and
+`Mandatory` is checked at the end against `isSet`, not `isNull`.
 
 **`toArgs` is deliberately narrower than `parse`**: it only emits String/Double/Integer/StringArray/Boolean
 and throws on anything else; array values are emitted as bare tokens after the `--name`, and a false Boolean
@@ -73,11 +73,10 @@ the variable, which is what lets one prefix serve several option types.
 
 ## Conventions in this module
 
-Annotations follow the ecosystem's `Foo` / `Foo_` pair, built with `new DefaultGlobTypeBuilder(...)` +
-`register(GlobCreateFromAnnotation.class, …)`. There is **no** `AllXAnnotations` registry type here, unlike
-most sibling repos — adding an annotation means the two files only.
+Annotations are Globs, one file each, built with `new DefaultGlobTypeBuilder(...)`. There is **no**
+`AllXAnnotations` registry type here, unlike most sibling repos — adding an annotation means that one file.
 
 Tests (JUnit 4) declare their option types as static nested classes whose `GlobType` is built in a static
 block with `GlobTypeBuilderFactory.create(name)`, passing annotations as Globs to `declareXField`
-(`declareStringField("name", Mandatory.UNIQUE)`) while also carrying the java `@Mandatory_` for readability.
+(`declareStringField("name", Mandatory.UNIQUE)`).
 Follow that shape rather than introducing a `Dummy*` type.
